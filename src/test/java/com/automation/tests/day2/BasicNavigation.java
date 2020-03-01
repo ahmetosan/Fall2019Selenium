@@ -9,11 +9,17 @@ import org.openqa.selenium.safari.SafariDriver;
 import java.rmi.Remote;
 
 public class BasicNavigation {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         ChromeDriver driver = new ChromeDriver();
-        WebDriver driver1 = new ChromeDriver();
 
-        driver.get("http://www.google.com");
+        driver.get("https://www.google.com/");
+        Thread.sleep(3000);
+        String title = driver.getTitle();
+        System.out.println("title = " + title);
+
+        driver.close();
+
+
     }
 }
