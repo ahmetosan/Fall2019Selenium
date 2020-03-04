@@ -12,6 +12,7 @@ public class FindElementByID {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
 
+
         driver.get("http://practice.cybertekschool.com/login");
         driver.findElement(By.name("username")).sendKeys("tomsmith");
         Thread.sleep(3000);
@@ -30,7 +31,9 @@ public class FindElementByID {
         }
         Thread.sleep(3000);
 
+
         WebElement logout = driver.findElement(By.linkText("Logout"));
+
 
         String href = logout.getAttribute("href");
         String className = logout.getAttribute("class");
@@ -39,6 +42,7 @@ public class FindElementByID {
         logout.click();
         Thread.sleep(3000);
 
+
         driver.findElement(By.name("username")).sendKeys("sanane");
         driver.findElement(By.name("password")).sendKeys("amanaaa");
         driver.findElement(By.id("wooden_spoon")).click();
@@ -46,8 +50,10 @@ public class FindElementByID {
 
         Thread.sleep(3000);
 
+
         WebElement errorMassage = driver.findElement(By.id("flash-messages"));
         System.out.println(errorMassage.getText());
+
 
         driver.quit();
 
