@@ -31,9 +31,24 @@ public class FindElementByID {
         Thread.sleep(3000);
 
         WebElement logout = driver.findElement(By.linkText("Logout"));
+
+        String href = logout.getAttribute("href");
+        String className = logout.getAttribute("class");
+        System.out.println("href = " + href);
+        System.out.println("className = " + className);
         logout.click();
+        Thread.sleep(3000);
+
+        driver.findElement(By.name("username")).sendKeys("sanane");
+        driver.findElement(By.name("password")).sendKeys("amanaaa");
+        driver.findElement(By.id("wooden_spoon")).click();
+
 
         Thread.sleep(3000);
+
+        WebElement errorMassage = driver.findElement(By.id("flash-messages"));
+        System.out.println(errorMassage.getText());
+
         driver.quit();
 
     }
