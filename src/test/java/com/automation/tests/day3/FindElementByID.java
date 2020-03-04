@@ -28,8 +28,12 @@ public class FindElementByID {
         }else{
             System.out.println("Fail");
         }
+        Thread.sleep(3000);
 
+        WebElement logout = driver.findElement(By.linkText("Logout"));
+        logout.click();
 
+        Thread.sleep(3000);
         driver.quit();
 
     }
