@@ -21,8 +21,17 @@ public class FindElementTests {
             System.out.println(link.getText());
             System.out.println(link.getAttribute("href"));
             System.out.println();
+//            link.click();
+//            Thread.sleep(2000);
+//            driver.navigate().back();
         }
-
+        for (int i = 1; i <links.size() ; i++) {
+            links.get(i).click();
+            Thread.sleep(500);
+            driver.navigate().back();
+            Thread.sleep(500);
+            links = driver.findElements(By.tagName("a"));
+        }
         driver.quit();
 
 
