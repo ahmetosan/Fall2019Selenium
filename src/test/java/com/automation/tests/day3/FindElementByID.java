@@ -12,7 +12,6 @@ public class FindElementByID {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
 
-
         driver.get("http://practice.cybertekschool.com/login");
         driver.findElement(By.name("username")).sendKeys("tomsmith");
         Thread.sleep(3000);
