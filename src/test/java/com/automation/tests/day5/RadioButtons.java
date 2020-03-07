@@ -19,8 +19,13 @@ public class RadioButtons {
         //<input type="radio">
         List<WebElement> radioButtons = driver.findElements(By.tagName("input"));
         for(WebElement radioButton: radioButtons){
+
             //to check if button can be clicked
             String id = radioButton.getAttribute("id");
+
+            boolean isSelected = radioButton.isSelected();
+            System.out.println(id+" is selected? "+isSelected);
+
             if(radioButton.isEnabled()) {
                 radioButton.click();
                 System.out.println("Clicked on :: "+id);
