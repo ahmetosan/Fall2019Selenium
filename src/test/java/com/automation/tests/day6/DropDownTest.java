@@ -44,6 +44,24 @@ public class DropDownTest {
         }
 
 
+        Select stateSelect = new Select(driver.findElement(By.id("state")));
+        stateSelect.selectByVisibleText("District Of Columbia");
+
+        String selected = stateSelect.getFirstSelectedOption().getText();
+
+        if (selected.equals("District Of Columbia")){
+            System.out.println("TEST PASSED");
+        }else {
+            System.out.println("TEST FAILED");
+        }
+
+
+        List<WebElement> statess = stateSelect.getOptions();
+
+        for (WebElement eachStates: statess) {
+            System.out.println(eachStates.getText());
+        }
+
 
         driver.quit();
     }
