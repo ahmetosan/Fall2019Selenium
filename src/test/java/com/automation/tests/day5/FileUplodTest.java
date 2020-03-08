@@ -16,8 +16,8 @@ public class FileUplodTest {
         BrowserUtils.wait(3);
 
         WebElement upload = driver.findElement(By.id("file-upload"));
-        String filePath =  System.getProperty("user.dir") + "/pom.eml";
-
+        String filePath =  System.getProperty("user.dir") + "/pom.xml";
+        System.out.println(filePath);
         upload.sendKeys(filePath);
 
         BrowserUtils.wait(3);
