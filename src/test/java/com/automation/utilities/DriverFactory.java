@@ -7,16 +7,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
 
-    
+
 
 
 
     public static WebDriver createDriver (String browserName){
         if (browserName.equalsIgnoreCase(("chrome"))){
-            WebDriverManager.chromedriver().setup();
+            WebDriverManager.chromedriver().version("97").setup();
             return  new ChromeDriver();
         }else {
-            WebDriverManager.firefoxdriver().setup();
+            WebDriverManager.firefoxdriver().version("97").setup();
             return new FirefoxDriver();
         }
     }
