@@ -30,7 +30,7 @@ public class LoginPageTest {
         assertTrue(warningElement.isDisplayed());
 
 
-        String expected = "Invalid user name or password";
+        String expected = "Invalid user name or password.";
         String actual = warningElement.getText();
         assertEquals(actual,expected);
 
