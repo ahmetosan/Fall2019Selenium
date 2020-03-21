@@ -45,12 +45,49 @@ public class ActionTest {
                 action.moveToElement(img1).perform();
                 WebElement imgtxt1 = driver.findElement(By.xpath("//h5[contains(text(),'name: user1')]"));
                 Assert.assertTrue(imgtxt1.isDisplayed());
+    }
+                @Test
+                public void jqueryTest(){
+                driver.get("http://practice.cybertekschool.com/jqueryui/menu");
+
+                WebElement enabled = driver.findElement(By.id("ui-id-3"));
+                WebElement download  = driver.findElement(By.id("ui-id-4"));
+                WebElement pdf  = driver.findElement(By.id("ui-id-5"));
+
+                action.moveToElement(enabled).pause(2000).
+                        moveToElement(download).pause(2000).
+                        click(pdf).build().perform();
 
     }
+
+    @Test
+    public void dragAndDropTest() throws InterruptedException {
+        driver.get("https://demos.telerik.com/kendo-ui/dragdrop/index");
+        driver.manage().window().maximize();
+        BrowserUtils.wait(3);
+
+        WebElement smallTop = driver.findElement(By.id("draggable"));
+        WebElement bigTop = driver.findElement(By.id("droptarget"));
+
+
+        action.dragAndDrop(smallTop,bigTop).perform();
+
+
+        String expected ="You did great!";
+        String actual = bigTop.getText();
+
+        Assert.assertEquals(expected,actual);
+
+
+    }
+
     @AfterMethod
     public void teardown() throws InterruptedException {
        BrowserUtils.wait(2);
         driver.quit();
+
+
+
     }
 }
 
