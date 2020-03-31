@@ -55,9 +55,9 @@ public class LoginPages {
      * Login as a default user
      * Credentials will be retrieved from configuration.properties file
      */
-    public void login() throws InterruptedException {
+    public void login() {
         username.sendKeys(ConfigurationReader.getProperty("store_manager"));
         password.sendKeys(ConfigurationReader.getProperty("password"), Keys.ENTER);
-        BrowserUtils.wait(3);
+
     }
 }
