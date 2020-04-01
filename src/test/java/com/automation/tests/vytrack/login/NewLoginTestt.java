@@ -7,7 +7,7 @@ import com.automation.utilities.Driver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NewLoginTest extends AbstractTestBase {
+public class NewLoginTestt extends AbstractTestBase {
     @Test
     public void verifyPageTitle() throws InterruptedException {
         LoginPages loginPage = new LoginPages();
@@ -25,6 +25,6 @@ public class NewLoginTest extends AbstractTestBase {
         LoginPages loginPages = new LoginPages();
         loginPages.login("wrong", "wrong");
         Assert.assertEquals(loginPages.getWarningMessageText(), "Invalid user name or password.");
-        BrowserUtils.getScreenshoot("loginPage");
+        BrowserUtils.getScreenshoot("warningMassage");
     }
 }

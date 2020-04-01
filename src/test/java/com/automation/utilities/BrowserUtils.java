@@ -10,7 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BrowserUtils  {
@@ -72,7 +74,17 @@ public class BrowserUtils  {
     }
 
     public static String getScreenshoot(String name){
-        String path =System.getProperty("user.dir")+"/test-output/screenshots/"+name+".png";
+        name = new Date().toString().replace(" ", "_").replace(":", "-") + "_" + name;
+
+        String path = "";
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            path = System.getProperty("user.dir") + "/test-output/screenshots/" + name + ".png";
+        } else {
+            path = System.getProperty("user.dir") + "\\test-output\\screenshots\\" + name + ".png";
+        }
+        System.out.println("OS name: "+System.getProperty("os.name"));
+        System.out.println("Screenshot is here: " + path);
+
         TakesScreenshot takesScreenshot = (TakesScreenshot) Driver.getDriver();
         File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
         File destination = new File(path);
