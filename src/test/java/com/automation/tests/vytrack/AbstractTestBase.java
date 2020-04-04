@@ -20,34 +20,33 @@ public abstract class AbstractTestBase {
     //will be visible in the subclass, regardless on subclass location (same package or no)
     protected WebDriverWait wait;
     protected Actions actions;
-
     protected ExtentReports report;
     protected ExtentHtmlReporter htmlReporter;
     protected ExtentTest test;
 
-@BeforeTest
-public void setupTest(){
-    report = new ExtentReports();
-    String reportPath = "";
-    if (System.getProperty("os.name").toLowerCase().contains("win")) {
-        reportPath = System.getProperty("user.dir") + "\\test-output\\report.html";
-    } else {
-        reportPath = System.getProperty("user.dir") + "/test-output/report.html";
+
+    @BeforeTest
+    public void setupTest() {
+        report = new ExtentReports();
+        String reportPath = "";
+        //location of report file
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            reportPath = System.getProperty("user.dir") + "\\test-output\\report.html";
+        } else {
+            reportPath = System.getProperty("user.dir") + "/test-output/report.html";
+        }
+        //is a HTML report itself
+        htmlReporter = new ExtentHtmlReporter(reportPath);
+        //add it to the reporter
+        report.attachReporter(htmlReporter);
+        htmlReporter.config().setReportName("VYTRACK Test Automation Results");
     }
-    htmlReporter = new ExtentHtmlReporter(reportPath);
-    report.attachReporter(htmlReporter);
-
-    htmlReporter.config().setReportName("vytrack test automation");
-
-}
-
-@AfterTest
-public void afterTest(){
-    report.flush();//release a report
-}
-
+    @AfterTest
+    public void afterTest() {
+        report.flush();//to release a report
+    }
     @BeforeMethod
-    public void setup(){
+    public void setup() {
         String URL = ConfigurationReader.getProperty("qa1");
         Driver.getDriver().get(URL);
         Driver.getDriver().manage().window().maximize();
@@ -56,18 +55,18 @@ public void afterTest(){
     }
     @AfterMethod
     public void teardown(ITestResult iTestResult) throws IOException {
-
-        if (iTestResult.getStatus()==ITestResult.FAILURE){
+        //ITestResult class describes the result of a test.
+        //if test failed, take a screenshot
+        //no failure - no screenshot
+        if (iTestResult.getStatus() == ITestResult.FAILURE) {
+            //screenshot will have a name of the test
             String screenshotPath = BrowserUtils.getScreenshoot(iTestResult.getName());
-            test.addScreenCaptureFromPath(screenshotPath);
-            test.fail(iTestResult.getName());
-            test.fail(iTestResult.getThrowable());
-
+            test.fail(iTestResult.getName());//attach test name that failed
+            BrowserUtils.wait(2);
+            test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
+            test.fail(iTestResult.getThrowable());//attach console output
         }
+        BrowserUtils.wait(1);
         Driver.closeDriver();
     }
-
-
-
 }
-

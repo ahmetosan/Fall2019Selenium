@@ -1,7 +1,11 @@
 package com.automation.pages;
 
 import com.automation.utilities.BrowserUtils;
+import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,15 +14,25 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+
+import java.io.IOException;
 
 public class AbstractPageBase {
     protected WebDriver driver = Driver.getDriver();
-    protected WebDriverWait wait = new WebDriverWait(driver, 15);
+    protected WebDriverWait wait = new WebDriverWait(driver, 25);
 
     @FindBy(css = "#user-menu > a")
     protected WebElement currentUser;
 
-    public AbstractPageBase(){ PageFactory.initElements(Driver.getDriver(),this); }
+    public AbstractPageBase() {
+        PageFactory.initElements(driver, this);
+    }
+
 
     public String getCurrentUserName(){
         BrowserUtils.waitForPageToLoad(10);
@@ -27,19 +41,28 @@ public class AbstractPageBase {
     }
 
 
-    public void navigateTo(String tabName, String moduleName){
+    /**
+     * Method for vytrack navigation. Provide tab name and module name to navigate
+     * @param tabName, like Dashboards, Fleet or Customers
+     * @param moduleName, like Vehicles, Vehicles Odometer and Vehicles Costs
+     */
+    public void navigateTo(String tabName, String moduleName) {
         String tabNameXpath = "//span[@class='title title-level-1' and contains(text(),'" + tabName + "')]";
         String moduleXpath = "//span[@class='title title-level-2' and text()='" + moduleName + "']";
 
-
-        WebElement tabElement =driver.findElement(By.xpath(tabNameXpath));
+        WebElement tabElement = driver.findElement(By.xpath(tabNameXpath));
         WebElement moduleElement = driver.findElement(By.xpath(moduleXpath));
-        Actions actions= new Actions(driver);
 
+        Actions actions = new Actions(driver);
 
-        actions.moveToElement(tabElement).pause(2000).click(moduleElement).build().perform();
+        BrowserUtils.wait(4);
 
+        actions.moveToElement(tabElement).
+                pause(2000).
+                click(moduleElement).
+                build().perform();
+
+        //increase this wait rime if still failing
+        BrowserUtils.wait(4);
     }
-
-
 }

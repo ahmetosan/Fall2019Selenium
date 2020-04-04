@@ -3,24 +3,12 @@ package com.automation.tests.vytrack.activities;
 import com.automation.pages.AbstractPageBase;
 import com.automation.pages.LoginPages;
 import com.automation.pages.activities.CalendarEventPage;
-import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.DateTimeUtilities;
-import com.automation.utilities.DriverFactory;
-import org.apache.commons.lang3.builder.ToStringExclude;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+
 
 public class NewCalendarEventPageTest extends AbstractPageBase {
     LoginPages loginPages = new LoginPages();
@@ -41,6 +29,28 @@ public class NewCalendarEventPageTest extends AbstractPageBase {
         Assert.assertEquals(actualStartDate,expectedStartDate);
     }
 
+
+
+//    @Test(dataProvider = "calendarEvents")
+//    public void createCalendarEventTest(String title, String description) {
+//        test = report.createTest("Create calendar event");
+//        loginPage.login();
+//        calendarEventPage.navigateTo("Activities", "Calendar Events");
+//        calendarEventsPage.clickToCreateCalendarEvent();
+//        calendarEventsPage.enterCalendarEventTitle(title);
+//        calendarEventsPage.enterCalendarEventDescription(description);
+//        calendarEventsPage.clickOnSaveAndClose();
+//        //verify that calendar event info is correct
+//        Assert.assertEquals(calendarEventsPage.getGeneralInfoDescriptionText(), description);
+//        Assert.assertEquals(calendarEventsPage.getGeneralInfoTitleText(), title);
+//        test.pass("Calendar event was created successfully!");
+//    }
+    @DataProvider
+    public Object[][] calendarEvents() {
+        return new Object[][]{
+                {"Daily stand-up", "Scrum meeting to provide updates"}
+        };
+    }
 @Test
     public void timeDifferenceTest(){
         loginPages.login();
