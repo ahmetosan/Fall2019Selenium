@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class NewLoginTest extends AbstractTestBase {
     @Test
-    public void verifyPageTitle() throws InterruptedException {
+    public void verifyPageTitle(){
         test = report.createTest("verify page title");
         LoginPages loginPage = new LoginPages();
         loginPage.login();
@@ -25,7 +25,7 @@ public class NewLoginTest extends AbstractTestBase {
         LoginPages loginPage = new LoginPages();
         loginPage.login(userName, password);
         test.info("Login as " + userName);//log some steps
-        Assert.assertEquals(Driver.getDriver().getTitle(), "Dashboards");
+        Assert.assertEquals(Driver.getDriver().getTitle(), "Dashboard");
         test.pass("Page title Dashboard was verified");
     }
     //Object[][] or Object[] or Iterator<Object[]>
